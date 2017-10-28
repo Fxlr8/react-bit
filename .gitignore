@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+build
+*.log
+coverage
+gh-pages
+.nyc_output

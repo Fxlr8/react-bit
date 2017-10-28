@@ -1,0 +1,31 @@
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const baseconfig = require('./webpack.config.base')
+
+module.exports = baseconfig({
+	isServer: false,
+	isProd: false,
+	devtool: 'cheap-module-eval-source-map',
+	entry: [
+		'webpack-dev-server/client?http://localhost:3000/',
+		'webpack/hot/dev-server',
+		path.join(__dirname, 'src/main.js')
+	],
+	output: {
+		filename: '[name].js'
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoEmitOnErrorsPlugin(),
+		new webpack.NamedModulesPlugin(),
+		new HtmlWebpackPlugin({
+			template: 'src/index.tpl.html',
+			inject: 'body',
+			filename: 'index.html'
+		})
+	],
+	performance: {
+		hints: false
+	}
+})
